@@ -55,7 +55,6 @@ const createTask =async (req, res) => {
 
     const { heading, description, token  } = req.body;
     //Write your code here.
-    try{
         const {userId} = jwt.verify(token, JWT_SECRET);
 
         const task = new Tasks({
@@ -63,19 +62,28 @@ const createTask =async (req, res) => {
             description,
             creator_id: userId
         });
-        const newTask = await task.save();
+            const newTask = await task.save();
 
-        return res.status(200).json({
-            status: "success",
-            message: "Task added successfully",
-            task_id: newTask.creator_id
-        })
-    } catch(err){
-            return res.status(404).json({
+        if(userId){
+            if(task_id){
+
+                res.status(200).json({
+                status: "success",
+                message: "Task added successfully",
+                task_id: newTask.creator_id
+            })
+            }else{
+                res.status(404).json({
                 message: 'Invalid token',
                 status: 'fail'
+                })
+            }
+        }else{
+            res.status(404).json({
+                message: err.message,
+                status: 'fail'
             })
-        }
+        } 
 }
 
 /*
