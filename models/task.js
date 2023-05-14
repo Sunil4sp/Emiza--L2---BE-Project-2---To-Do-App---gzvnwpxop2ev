@@ -19,11 +19,7 @@ var taskSchema = mongoose.Schema({
   status: { type: String, enum:['pending', 'done'], default: 'pending' },
   creator_id: { 
     type: String,
-    user: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User"
     }
-  }
 },
 { timestamps: true}
 );
