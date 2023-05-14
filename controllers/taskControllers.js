@@ -5,7 +5,7 @@ const bcrypt  = require('bcrypt');
 const { valid } = require("joi");
 const JWT_SECRET = "newtonSchool";
 const { json } = require("express");
-const { token } = require("../authentication/jwt.js")
+
 /*
 
 request.body = {
